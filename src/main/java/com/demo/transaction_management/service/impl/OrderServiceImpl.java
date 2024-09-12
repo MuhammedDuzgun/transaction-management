@@ -9,6 +9,7 @@ import com.demo.transaction_management.repository.IOrderRepository;
 import com.demo.transaction_management.repository.IPaymentRepository;
 import com.demo.transaction_management.service.IOrderService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -24,6 +25,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
+    @Transactional
     public OrderResponse placeOrder(OrderRequest orderRequest) {
         Order order = orderRequest.getOrder();
         order.setStatus("IN_PROGRESS");
@@ -33,7 +35,7 @@ public class OrderServiceImpl implements IOrderService {
         Payment payment = orderRequest.getPayment();
 
         if(!payment.getType().equals("DEBIT")) {
-            throw new PaymentException("Debit card is not supported");
+            throw new PaymentException("card type is not supported");
         }
 
         payment.setOrderId(order.getId());
