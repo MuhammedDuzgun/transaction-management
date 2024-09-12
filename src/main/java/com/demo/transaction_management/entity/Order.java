@@ -21,7 +21,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String orderTackingNumber;
+    private String orderTrackingNumber;
     private int totalQuantity;
     private BigDecimal totalPrice;
     private String status;
